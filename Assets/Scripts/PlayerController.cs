@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Animator animator;
+    public float vertical;
 
     private void Awake()
     {
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        vertical = Input.GetAxisRaw("Vertical");
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
         // Horizontal character movement (Player_Idle -> Player_Run)
@@ -37,14 +38,23 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
         // Vertical Character movement
-
+        if (vertical > 0) 
+        {
+            animator.SetBool("isJumping", true);
+        }
+        else if (vertical <= 0) 
+        {
+            animator.SetBool("isJumping", false);
+        }
 
         // Crouch animation
-        bool isControlButtonPressed = Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl);
-        if (isControlButtonPressed) 
+        if (Input.GetKeyDown(KeyCode.RightControl) || Input.GetKeyDown(KeyCode.LeftControl)) 
         {
             animator.SetBool("isCrouching", true);
         }
-        animator.SetBool("isCrouching", false);
+        else if (Input.GetKeyUp(KeyCode.RightControl) || Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            animator.SetBool("isCrouching", false);
+        }
     }
 }
