@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Animator animator;
-    public float vertical;
 
     private void Awake()
     {
@@ -22,7 +21,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+        float vertical = Input.GetAxisRaw("Vertical");
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
         // Horizontal character movement (Player_Idle -> Player_Run)
