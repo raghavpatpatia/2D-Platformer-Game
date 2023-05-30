@@ -136,8 +136,8 @@ GameObject:
   - component: {fileID: 415486804}
   - component: {fileID: 415486803}
   m_Layer: 6
-  m_Name: GameObject (1)
-  m_TagString: Untagged
+  m_Name: Platform 2
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -331,8 +331,8 @@ GameObject:
   - component: {fileID: 519913048}
   - component: {fileID: 519913047}
   m_Layer: 6
-  m_Name: GameObject (4)
-  m_TagString: Untagged
+  m_Name: Platform 5
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -442,8 +442,8 @@ GameObject:
   - component: {fileID: 905806589}
   - component: {fileID: 905806588}
   m_Layer: 6
-  m_Name: GameObject
-  m_TagString: Untagged
+  m_Name: Platform 1
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -553,8 +553,8 @@ GameObject:
   - component: {fileID: 1336822131}
   - component: {fileID: 1336822130}
   m_Layer: 6
-  m_Name: GameObject (2)
-  m_TagString: Untagged
+  m_Name: Platform 3
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -664,8 +664,8 @@ GameObject:
   - component: {fileID: 1663731243}
   - component: {fileID: 1663731242}
   m_Layer: 6
-  m_Name: GameObject (3)
-  m_TagString: Untagged
+  m_Name: Platform 4
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -778,6 +778,10 @@ PrefabInstance:
       propertyPath: speed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1857236235, guid: bf9c9bd5f596d934ab7b530159512f32, type: 3}
+      propertyPath: jumpForce
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 35933644623765269, guid: bf9c9bd5f596d934ab7b530159512f32,
         type: 3}
       propertyPath: m_RootOrder
@@ -836,6 +840,11 @@ PrefabInstance:
     - target: {fileID: 4356236141252086761, guid: bf9c9bd5f596d934ab7b530159512f32,
         type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4356236141252086761, guid: bf9c9bd5f596d934ab7b530159512f32,
+        type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
