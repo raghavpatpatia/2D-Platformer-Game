@@ -62,14 +62,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            isOnGround = false;
+        }
+    }
+
     void VerticalMovement(float vertical)
     {
         // Vertical Character movement
         if (vertical > 0 && isOnGround)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
+            rb.velocity = Vector2.up * jumpForce;
             animator.SetBool("isJumping", true);
-            isOnGround = false;
         }
         else
         {
