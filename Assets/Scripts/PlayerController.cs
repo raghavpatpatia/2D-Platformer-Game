@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -75,10 +76,21 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.name == "DeathCheck")
         {
             animator.SetBool("isDead", true);
+            isMoving = false;
         }
         else
         {
             animator.SetBool("isDead", false);
+            isMoving = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "DeathCheck")
+        {
+            Debug.Log("You failed!! Restarting the level.");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
