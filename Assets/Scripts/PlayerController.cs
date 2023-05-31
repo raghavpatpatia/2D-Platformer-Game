@@ -70,6 +70,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "DeathCheck")
+        {
+            animator.SetBool("isDead", true);
+        }
+        else
+        {
+            animator.SetBool("isDead", false);
+        }
+    }
+
     void VerticalMovement(float vertical)
     {
         // Vertical Character movement
