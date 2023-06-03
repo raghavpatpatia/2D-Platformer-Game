@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9141446429248404903}
   - component: {fileID: 9141446429248404902}
   - component: {fileID: 9141446429248404900}
+  - component: {fileID: 3535629977290162715}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -173,3 +174,19 @@ MonoBehaviour:
   - {fileID: 0}
   moveSpeed: 3
   patrolDestination: 0
+--- !u!70 &3535629977290162715
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9141446429248404920}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.68, y: 0.42}
+  m_Size: {x: 1.34, y: 0.48}
+  m_Direction: 1

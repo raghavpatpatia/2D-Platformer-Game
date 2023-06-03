@@ -8,10 +8,22 @@ public class EnemyController : MonoBehaviour
     public Transform[] patrolPoints;
     public float moveSpeed;
     public int patrolDestination;
+    private bool isAlive = true;
+    private Animator animator;
+    private bool isInRangeAnimationPlaying = false;
+    private bool isDeathAnimationPlaying = false;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
-        EnemyMovement();
+        if (isAlive)
+        {
+            EnemyMovement();
+        }
     }
 
     private void EnemyMovement()
@@ -43,8 +55,36 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null && collision.gameObject.GetComponent<PlayerController>().isOnGround == false)
         {
-            gameObject.GetComponent<Animator>().SetBool("isDead", true);
+            isAlive = false;
+            isDeathAnimationPlaying = true;
+            animator.SetBool("isDead", true);
+            StartCoroutine(WaitForAnimationFinish());
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerController>() != null)
+        {
+            isInRangeAnimationPlaying = true;
+            animator.SetBool("inRange", true);
+            StartCoroutine(WaitForAnimationFinish());
+        }   
+    }
+
+    IEnumerator WaitForAnimationFinish()
+    {
+        float animationLength = animator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(animationLength);
+
+        if (isDeathAnimationPlaying)
+        {
             gameObject.SetActive(false);
+        }
+        else if (isInRangeAnimationPlaying)
+        {
+            animator.SetBool("inRange", false);
+            isInRangeAnimationPlaying = false;
         }
     }
 }
