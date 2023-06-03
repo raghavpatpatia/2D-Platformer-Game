@@ -18,7 +18,6 @@ public class KeyPickup : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
             collision.gameObject.GetComponent<PlayerController>().PickupKey();
-            // Destroy(gameObject);
             StartCoroutine(KeyFade());
         }
     }
@@ -32,6 +31,8 @@ public class KeyPickup : MonoBehaviour
         Color targetColor = spriteRenderer.color;
         targetColor.a = 0f;
 
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
         float t = 0f;
         while (t < 1f)
         {
@@ -40,8 +41,6 @@ public class KeyPickup : MonoBehaviour
             spriteRenderer.color = Color.Lerp(new Color(1f, 1f, 1f, initialAlpha), targetColor, t);
 
             t += Time.deltaTime / moveDuration;
-
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
 
             yield return null;
         }

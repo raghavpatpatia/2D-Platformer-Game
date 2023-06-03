@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public float speed;
     public float jumpForce;
-    bool isOnGround = true;
+    public bool isOnGround = true;
     bool isMoving = true;
 
     private void Awake()
@@ -57,6 +57,12 @@ public class PlayerController : MonoBehaviour
         {
             isOnGround = true;
         }
+        if (collision.gameObject.GetComponent<EnemyController>() != null && isOnGround)
+        {
+            isMoving = false;
+            animator.SetBool("isDead", true);
+            StartCoroutine(ReloadLevelAfterAnimation());
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -71,22 +77,9 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.name == "DeathCheck")
         {
-            animator.SetBool("isDead", true);
             isMoving = false;
-        }
-        else
-        {
-            animator.SetBool("isDead", false);
-            isMoving = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.name == "DeathCheck")
-        {
-            Debug.Log("You failed!! Restarting the level.");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            animator.SetBool("isDead", true);
+            StartCoroutine(ReloadLevelAfterAnimation());
         }
     }
 
@@ -126,5 +119,12 @@ public class PlayerController : MonoBehaviour
     public void PickupKey()
     {
         scoreManager.IncrementScore(10);
+    }
+
+    IEnumerator ReloadLevelAfterAnimation()
+    {
+        Debug.Log("You failed!! Restarting the level.");
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

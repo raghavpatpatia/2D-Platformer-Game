@@ -5,48 +5,46 @@ using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
-    public GameObject pointA;
-    public GameObject pointB;
-    public float speed;
-    private Transform currentPosition;
-    private Animator animator;
-    private Rigidbody2D rb;
-
-    private void Start()
-    {
-        currentPosition = pointB.transform;
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-    }
+    public Transform[] patrolPoints;
+    public float moveSpeed;
+    public int patrolDestination;
 
     private void Update()
     {
-        Movement();
+        EnemyMovement();
     }
 
-    private void Movement()
+    private void EnemyMovement()
     {
-        Vector2 scale = transform.localScale;
-        if (currentPosition == pointB.transform)
+        Vector3 scale = transform.localScale;
+        if (patrolDestination == 0)
         {
-            rb.velocity = new Vector2(speed, 0);
-            scale.x = Mathf.Abs(scale.x);
-        }
-        else if (currentPosition == pointA.transform)
-        {
-            rb.velocity = new Vector2(-speed, 0);
-            scale.x = -1 * Mathf.Abs(scale.x);
-        }
-
-        if (Vector2.Distance(transform.position, currentPosition.position) < 1f && currentPosition == pointB.transform)
-        {
-            currentPosition = pointA.transform;          
+            transform.position = Vector2.MoveTowards(transform.position, patrolPoints[0].position, moveSpeed * Time.deltaTime);
+            if (Vector2.Distance(transform.position, patrolPoints[0].position) < 0.2f)
+            {
+                scale.x = -1f * Mathf.Abs(scale.x);
+                patrolDestination = 1;
+            }
         }
 
-        if (Vector2.Distance(transform.position, currentPosition.position) < 1f && currentPosition == pointA.transform)
+        else if (patrolDestination == 1)
         {
-            currentPosition = pointB.transform;
+            transform.position = Vector2.MoveTowards(transform.position, patrolPoints[1].position, moveSpeed * Time.deltaTime);
+            if (Vector2.Distance(transform.position, patrolPoints[1].position) < 0.2f)
+            {
+                scale.x = Mathf.Abs(scale.x);
+                patrolDestination = 0;
+            }
         }
+        transform.localScale = scale;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerController>() != null && collision.gameObject.GetComponent<PlayerController>().isOnGround == false)
+        {
+            gameObject.GetComponent<Animator>().SetBool("isDead", true);
+            gameObject.SetActive(false);
+        }
+    }
 }
