@@ -372,7 +372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4b74ca0883766046b246c7779ceb17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
   hearts:
   - {fileID: 716358004}
   - {fileID: 1918316175}
@@ -9143,6 +9142,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1577602945}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1155174664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1155174665}
+  m_Layer: 0
+  m_Name: Checkpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1155174665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155174664}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10, y: -4.7, z: -8.338374}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1158520354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11313,6 +11343,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1857236231, guid: bf9c9bd5f596d934ab7b530159512f32, type: 3}
+      propertyPath: m_Size.x
+      value: 0.6577689
+      objectReference: {fileID: 0}
+    - target: {fileID: 1857236231, guid: bf9c9bd5f596d934ab7b530159512f32, type: 3}
+      propertyPath: m_Size.y
+      value: 2.1300848
+      objectReference: {fileID: 0}
+    - target: {fileID: 1857236231, guid: bf9c9bd5f596d934ab7b530159512f32, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.02482149
+      objectReference: {fileID: 0}
+    - target: {fileID: 1857236231, guid: bf9c9bd5f596d934ab7b530159512f32, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.9902457
+      objectReference: {fileID: 0}
+    - target: {fileID: 1857236235, guid: bf9c9bd5f596d934ab7b530159512f32, type: 3}
+      propertyPath: checkpoint
+      value: 
+      objectReference: {fileID: 1155174665}
     - target: {fileID: 1857236235, guid: bf9c9bd5f596d934ab7b530159512f32, type: 3}
       propertyPath: scoreManager
       value: 
@@ -11330,7 +11380,7 @@ PrefabInstance:
     - target: {fileID: 35933644623765269, guid: bf9c9bd5f596d934ab7b530159512f32,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4
+      value: -4.66
       objectReference: {fileID: 0}
     - target: {fileID: 35933644623765269, guid: bf9c9bd5f596d934ab7b530159512f32,
         type: 3}
