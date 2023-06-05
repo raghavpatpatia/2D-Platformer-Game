@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public ScoreManager scoreManager;
     private Animator animator;
     private Rigidbody2D rb;
+    public Transform checkpoint;
     public float speed;
     public float jumpForce;
     public bool isOnGround = true;
@@ -59,9 +60,18 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.GetComponent<EnemyController>() != null && isOnGround)
         {
-            isMoving = false;
-            animator.SetBool("isDead", true);
-            StartCoroutine(ReloadLevelAfterAnimation());
+            HealthManager.health--;
+            if (HealthManager.health <= 0)
+            {
+                isMoving = false;
+                animator.SetBool("isDead", true);
+                StartCoroutine(ReloadLevelAfterAnimation());
+            }
+            else
+            {
+                animator.SetBool("isDead", true);
+                StartCoroutine(PlayerEnemyCollision());
+            }
         }
     }
 
@@ -127,4 +137,14 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    
+    IEnumerator PlayerEnemyCollision()
+    {
+        Physics2D.IgnoreLayerCollision(3, 7, true);
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        gameObject.transform.position = checkpoint.position;
+        Physics2D.IgnoreLayerCollision(3, 7, false);
+        animator.SetBool("isDead", false);
+    }
+
 }

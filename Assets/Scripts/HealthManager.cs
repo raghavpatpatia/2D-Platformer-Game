@@ -5,11 +5,16 @@ using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
-    public int health = 3;
+    public static int health;
     public Image[] hearts;
 
     public Sprite fullHeart;
     public Sprite emptyHeart;
+
+    private void Awake()
+    {
+        health = 3;
+    }
 
     private void Update()
     {
