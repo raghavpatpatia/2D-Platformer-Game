@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject GameOverMenu;
     public ScoreManager scoreManager;
     private Animator animator;
     private Rigidbody2D rb;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        GameOverMenu.SetActive(false);
     }
 
     // Update is called once per frame
@@ -135,7 +137,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("You failed!! Restarting the level.");
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameOverMenu.SetActive(true);   
     }
     
     IEnumerator PlayerEnemyCollision()

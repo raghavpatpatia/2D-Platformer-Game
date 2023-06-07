@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class StartButton : MonoBehaviour
 {
     public Button button;
+    [SerializeField] int sceneNumber;
 
     private void Awake()
     {
@@ -15,6 +16,6 @@ public class StartButton : MonoBehaviour
 
     private void StartGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(sceneNumber);
     }
 }

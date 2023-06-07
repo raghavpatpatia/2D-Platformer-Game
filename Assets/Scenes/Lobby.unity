@@ -549,6 +549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 201220957}
+  sceneNumber: 1
 --- !u!4 &355919801
 Transform:
   m_ObjectHideFlags: 0
