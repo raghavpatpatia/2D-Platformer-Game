@@ -16,12 +16,7 @@ public class HealthManager : MonoBehaviour
         health = 3;
     }
 
-    private void Update()
-    {
-        Heart();
-    }
-
-    void Heart()
+    public void UpdateHealth()
     {
         foreach (Image image in hearts)
         {

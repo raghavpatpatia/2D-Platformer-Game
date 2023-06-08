@@ -28,13 +28,12 @@ public class EnemyController : MonoBehaviour
 
     private void EnemyMovement()
     {
-        Vector3 scale = transform.localScale;
         if (patrolDestination == 0)
         {
             transform.position = Vector2.MoveTowards(transform.position, patrolPoints[0].position, moveSpeed * Time.deltaTime);
             if (Vector2.Distance(transform.position, patrolPoints[0].position) < 0.2f)
             {
-                scale.x = -1f * Mathf.Abs(scale.x);
+                FlipEnemy(true);
                 patrolDestination = 1;
             }
         }
@@ -44,9 +43,22 @@ public class EnemyController : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, patrolPoints[1].position, moveSpeed * Time.deltaTime);
             if (Vector2.Distance(transform.position, patrolPoints[1].position) < 0.2f)
             {
-                scale.x = Mathf.Abs(scale.x);
+                FlipEnemy(false);
                 patrolDestination = 0;
             }
+        }
+    }
+
+    private void FlipEnemy(bool flip)
+    {
+        Vector3 scale = transform.localScale;
+        if (flip)
+        {
+            scale.x = -1f * Mathf.Abs(scale.x);
+        }
+        else if (!flip)
+        {
+            scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
     }

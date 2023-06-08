@@ -199,6 +199,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ec008deca8127c4fad31bb3add29018, type: 3}
+--- !u!1 &43786681 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4356236141252086761, guid: bf9c9bd5f596d934ab7b530159512f32,
+    type: 3}
+  m_PrefabInstance: {fileID: 6169001005577244171}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &43786688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43786681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b74ca0883766046b246c7779ceb17e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hearts:
+  - {fileID: 716358004}
+  - {fileID: 1918316175}
+  - {fileID: 206725946}
+  fullHeart: {fileID: 21300010, guid: fc49794cc535bef4f969645c4eb97b80, type: 3}
+  emptyHeart: {fileID: 21300000, guid: fc49794cc535bef4f969645c4eb97b80, type: 3}
 --- !u!1001 &48217814
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12156,6 +12180,10 @@ PrefabInstance:
       propertyPath: scoreManager
       value: 
       objectReference: {fileID: 1971666034}
+    - target: {fileID: 1857236235, guid: bf9c9bd5f596d934ab7b530159512f32, type: 3}
+      propertyPath: healthManager
+      value: 
+      objectReference: {fileID: 43786688}
     - target: {fileID: 35933644623765269, guid: bf9c9bd5f596d934ab7b530159512f32,
         type: 3}
       propertyPath: m_RootOrder
