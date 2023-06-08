@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public ScoreManager scoreManager;
+    public HealthManager healthManager;
     private Animator animator;
     private Rigidbody2D rb;
     public Transform checkpoint;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        healthManager = GetComponent<HealthManager>();
     }
 
     // Update is called once per frame
@@ -72,6 +74,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isDead", true);
                 StartCoroutine(PlayerEnemyCollision());
             }
+            healthManager.UpdateHealth();
         }
     }
 
