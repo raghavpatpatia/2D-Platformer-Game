@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -6,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreManager scoreManager;
     private Animator animator;
     private Rigidbody2D rb;
     public float speed;
@@ -119,5 +121,10 @@ public class PlayerController : MonoBehaviour
             PlayerMovementHorizontal(horizontal);
         }
         transform.localScale = scale;
+    }
+
+    public void PickupKey()
+    {
+        scoreManager.IncrementScore(10);
     }
 }
