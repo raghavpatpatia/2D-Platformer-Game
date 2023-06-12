@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 1857236230}
   - component: {fileID: 1857236231}
   - component: {fileID: 1857236235}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -253,6 +253,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e7817d24a98b24f84c355da29ad9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameOverMenu: {fileID: 7312637230975151117, guid: a011c8216e437684fa7449835d3f2279,
+    type: 3}
   scoreManager: {fileID: 0}
+  healthManager: {fileID: 0}
+  checkpoint: {fileID: 0}
   speed: 10
   jumpForce: 12
+  isOnGround: 1

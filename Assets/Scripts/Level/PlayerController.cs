@@ -145,10 +145,10 @@ public class PlayerController : MonoBehaviour
     
     IEnumerator PlayerEnemyCollision()
     {
-        Physics2D.IgnoreLayerCollision(3, 7, true);
+        Physics2D.IgnoreLayerCollision(6, 7, true);
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         gameObject.transform.position = checkpoint.position;
-        Physics2D.IgnoreLayerCollision(3, 7, false);
+        Physics2D.IgnoreLayerCollision(6, 7, false);
         animator.SetBool("isDead", false);
     }
 

@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class StartButton : MonoBehaviour
 {
     public Button button;
-    [SerializeField] int sceneNumber;
+    public GameObject LevelSelection;
+    public GameObject GamePanel;
 
     private void Awake()
     {
+        LevelSelection.SetActive(false);
+        GamePanel.SetActive(true);
         button.onClick.AddListener(StartGame);
     }
 
     private void StartGame()
     {
-        SceneManager.LoadScene(sceneNumber);
+        GamePanel.SetActive(false);
+        LevelSelection.SetActive(true);
     }
 }

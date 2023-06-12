@@ -1,16 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    public TextMeshProUGUI text;
+    public GameObject nextLevelPanel;
+    public ScoreManager scoreManager;
+    [SerializeField]int levelScore;
+    private Animator animator;
+
+    private void Awake()
+    {
+        nextLevelPanel.SetActive(false);
+        animator = GetComponent<Animator>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("Congrats!! You have cleared level 1.");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            if (scoreManager.score >= levelScore)
+            {
+                animator.SetBool("isScoreMax", true);
+                nextLevelPanel.SetActive(true);
+                text.text = "Congrats!! You have cleared the level " + SceneManager.GetActiveScene().buildIndex.ToString();
+            }
         }
     }
 }
