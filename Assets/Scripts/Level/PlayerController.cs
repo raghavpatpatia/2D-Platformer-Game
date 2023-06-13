@@ -64,20 +64,25 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.GetComponent<EnemyController>() != null && isOnGround)
         {
-            HealthManager.health--;
-            if (HealthManager.health <= 0)
-            {
-                isMoving = false;
-                animator.SetBool("isDead", true);
-                StartCoroutine(ReloadLevelAfterAnimation());
-            }
-            else
-            {
-                animator.SetBool("isDead", true);
-                StartCoroutine(PlayerEnemyCollision());
-            }
-            healthManager.UpdateHealth();
+            DeathByCollision();
         }
+    }
+
+    public void DeathByCollision()
+    {
+        HealthManager.health--;
+        if (HealthManager.health <= 0)
+        {
+            isMoving = false;
+            animator.SetBool("isDead", true);
+            StartCoroutine(ReloadLevelAfterAnimation());
+        }
+        else
+        {
+            animator.SetBool("isDead", true);
+            StartCoroutine(PlayerEnemyCollision());
+        }
+        healthManager.UpdateHealth();
     }
 
     private void OnCollisionExit2D(Collision2D collision)
