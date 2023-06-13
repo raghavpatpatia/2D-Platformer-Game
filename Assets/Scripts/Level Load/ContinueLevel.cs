@@ -1,21 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(Button))]
 public class ContinueLevel : MonoBehaviour
 {
-    private int continueLevel;
-    public int GetLevel(int level = 1)
+    private Button button;
+    private int sceneToContinue;
+
+    private void Awake()
     {
-        PlayerPrefs.SetInt("LoadLevel", level);
-        PlayerPrefs.Save();
-        return level;
+        button = GetComponent<Button>();
+        button.onClick.AddListener(Load);
     }
 
-    public void LoadLastScene()
+    private void Load()
     {
-        continueLevel = PlayerPrefs.GetInt("LoadLevel", GetLevel());
-        SceneManager.LoadScene(continueLevel);
+        sceneToContinue = PlayerPrefs.GetInt("LoadLevel");
+
+        if (sceneToContinue != 0)
+        {
+            SceneManager.LoadScene(sceneToContinue);
+        }
+        else
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }
