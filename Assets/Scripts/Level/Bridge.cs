@@ -6,7 +6,13 @@ public class Bridge : MonoBehaviour
 {
     public Transform[] patrolPoints;
     public float moveSpeed;
-    public int patrolDestination;
+    public int startingPoint;
+    private int i;
+
+    private void Start()
+    {
+        transform.position = patrolPoints[startingPoint].position;
+    }
 
     private void Update()
     {
@@ -15,22 +21,24 @@ public class Bridge : MonoBehaviour
 
     private void BridgeMovement()
     {
-        if (patrolDestination == 0)
+        if (Vector2.Distance(transform.position, patrolPoints[i].position) < 0.2f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, patrolPoints[0].position, moveSpeed * Time.deltaTime);
-            if (Vector2.Distance(transform.position, patrolPoints[0].position) < 0.2f)
+            i++;
+            if (i == patrolPoints.Length)
             {
-                patrolDestination = 1;
+                i = 0;
             }
         }
+        transform.position = Vector2.MoveTowards(transform.position, patrolPoints[i].position, moveSpeed * Time.deltaTime);
+    }
 
-        else if (patrolDestination == 1)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, patrolPoints[1].position, moveSpeed * Time.deltaTime);
-            if (Vector2.Distance(transform.position, patrolPoints[1].position) < 0.2f)
-            {
-                patrolDestination = 0;
-            }
-        }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        collision.transform.SetParent(transform);
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        collision.transform.SetParent(null);
     }
 }
