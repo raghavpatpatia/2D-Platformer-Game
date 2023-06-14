@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour
+public class NextLevelDisplay: MonoBehaviour
 {
     public TextMeshProUGUI text;
     public GameObject nextLevelPanel;
