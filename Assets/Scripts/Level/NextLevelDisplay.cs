@@ -9,7 +9,7 @@ public class NextLevelDisplay: MonoBehaviour
     public ScoreManager scoreManager;
     [SerializeField]int levelScore;
     private Animator animator;
-    private int currentSceneIndex;
+    private int nextSceneIndex;
 
     private void Awake()
     {
@@ -19,20 +19,21 @@ public class NextLevelDisplay: MonoBehaviour
 
     private void SaveScene()
     {
-        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        PlayerPrefs.SetInt("LoadLevel", currentSceneIndex);
+        nextSceneIndex = (SceneManager.GetActiveScene().buildIndex) + 1;
+        PlayerPrefs.SetInt("LoadLevel", nextSceneIndex);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            SaveScene();
             if (scoreManager.score >= levelScore)
             {
+                SaveScene();
                 animator.SetBool("isScoreMax", true);
                 nextLevelPanel.SetActive(true);
                 text.text = "Congrats!! You have cleared the level " + SceneManager.GetActiveScene().buildIndex.ToString();
+                LevelManager.Instance.MarkCurrentLevelComplete();
             }
         }
     }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LevelLoader : MonoBehaviour
 {
     private Button button;
-    [SerializeField]int levelNumber;
+    [SerializeField]string levelName;
 
     private void Awake()
     {
@@ -16,6 +16,18 @@ public class LevelLoader : MonoBehaviour
 
     private void OnClick()
     {
-        SceneManager.LoadScene(levelNumber);
+        LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(levelName);
+        switch (levelStatus)
+        {
+            case LevelStatus.Locked:
+                Debug.Log("Level is currently locked...");
+                break;
+            case LevelStatus.Unlocked:
+                SceneManager.LoadScene(levelName);
+                break;
+            case LevelStatus.Completed:
+                SceneManager.LoadScene(levelName);
+                break;
+        }
     }
 }
