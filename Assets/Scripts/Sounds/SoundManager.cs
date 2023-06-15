@@ -1,18 +1,82 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+
+public enum Sounds
+{
+    ButtonClick,
+    BackgroundMusic,
+    PlayerMove,
+    PlayerDeath,
+    EnemyDeath
+}
+
+[Serializable]
+public class SoundType
+{
+    public Sounds soundType;
+    public AudioClip soundClip;
+}
 
 public class SoundManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private static SoundManager instance;
+    public static SoundManager Instance { get { return instance; } }
+
+    public AudioSource soundEffect, soundMusic;
+
+    public SoundType[] sounds;
+    private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        PlayBGMusic(Sounds.BackgroundMusic);
+    }
+
+    public void PlayBGMusic(Sounds sound)
+    {
+        AudioClip clip = GetAudioClip(sound);
+        if (clip != null)
+        {
+            soundMusic.clip = clip;
+            soundMusic.Play();
+        }
+        else
+        {
+            Debug.LogError("Clip not found for sound type: " + sound);
+        }
+    }
+
+    public void Play(Sounds sound)
+    {
+        AudioClip clip = GetAudioClip(sound);
+        if (clip != null)
+        {
+            soundEffect.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogError("Clip not found for sound type: " + sound);
+        }
+    }
+
+    private AudioClip GetAudioClip(Sounds sound)
+    {
+        SoundType item = Array.Find(sounds, i => i.soundType == sound);
+        if (item != null)
+        {
+            return item.soundClip;
+        }
+        return null;
     }
 }

@@ -14,6 +14,7 @@ public class QuitButton : MonoBehaviour
     
     private void QuitGame()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClick);
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         PlayerPrefs.DeleteAll();
