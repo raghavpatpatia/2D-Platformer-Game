@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
 
         HorizontalMovement(horizontal);
-        
+                
         VerticalMovement(vertical);
 
         // Crouch animation
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void PlayerMovementHorizontal(float horizontal) 
-    { 
+    {
         Vector2 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
@@ -75,10 +75,12 @@ public class PlayerController : MonoBehaviour
         {
             isMoving = false;
             animator.SetBool("isDead", true);
+            SoundManager.Instance.Play(Sounds.PlayerHurt);
             StartCoroutine(ReloadLevelAfterAnimation());
         }
         else
         {
+            SoundManager.Instance.Play(Sounds.PlayerDeath);
             animator.SetBool("isDead", true);
             StartCoroutine(PlayerEnemyCollision());
         }
@@ -98,6 +100,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.name == "DeathCheck")
         {
             isMoving = false;
+            SoundManager.Instance.Play(Sounds.PlayerDeath);
             animator.SetBool("isDead", true);
             StartCoroutine(ReloadLevelAfterAnimation());
         }
@@ -107,14 +110,15 @@ public class PlayerController : MonoBehaviour
     {
         // Vertical Character movement
         if (vertical > 0 && isOnGround)
-        {
+        {    
             rb.velocity = Vector2.up * jumpForce;
             animator.SetBool("isJumping", true);
         }
         else
-        {
+        {   
             animator.SetBool("isJumping", false);
         }
+        SoundManager.Instance.Play(Sounds.PlayerJump);
     }
 
     void HorizontalMovement(float horizontal) 
@@ -134,10 +138,12 @@ public class PlayerController : MonoBehaviour
             PlayerMovementHorizontal(horizontal);
         }
         transform.localScale = scale;
+        SoundManager.Instance.Play(Sounds.PlayerMove);
     }
 
     public void PickupKey()
     {
+        SoundManager.Instance.Play(Sounds.KeyPickup);
         scoreManager.IncrementScore(10);
     }
 

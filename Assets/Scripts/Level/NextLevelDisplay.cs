@@ -23,6 +23,7 @@ public class NextLevelDisplay: MonoBehaviour
         {
             if (scoreManager.score >= levelScore)
             {
+                SoundManager.Instance.Play(Sounds.LevelDoor);
                 animator.SetBool("isScoreMax", true);
                 nextLevelPanel.SetActive(true);
                 text.text = "Congrats!! You have cleared the level " + SceneManager.GetActiveScene().buildIndex.ToString();

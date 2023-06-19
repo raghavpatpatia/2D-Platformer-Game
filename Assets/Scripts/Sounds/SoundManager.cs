@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum Sounds
@@ -7,7 +8,13 @@ public enum Sounds
     BackgroundMusic,
     PlayerMove,
     PlayerDeath,
-    EnemyDeath
+    PlayerJump,
+    PlayerHurt,
+    EnemyDeath, 
+    EnemyMove,
+    EnemyAttack,
+    LevelDoor,
+    KeyPickup
 }
 
 [Serializable]
@@ -41,6 +48,17 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         PlayBGMusic(Sounds.BackgroundMusic);
+        InitializeSoundDictionary();
+    }
+
+    private Dictionary<Sounds, float> soundTimerDictionary;
+
+    private void InitializeSoundDictionary()
+    {
+        soundTimerDictionary = new Dictionary<Sounds, float>();
+        soundTimerDictionary[Sounds.PlayerMove] = 0;
+        soundTimerDictionary[Sounds.PlayerJump] = 0;
+        soundTimerDictionary[Sounds.EnemyMove] = 0;
     }
 
     public void PlayBGMusic(Sounds sound)
@@ -60,13 +78,41 @@ public class SoundManager : MonoBehaviour
     public void Play(Sounds sound)
     {
         AudioClip clip = GetAudioClip(sound);
-        if (clip != null)
+        if (CanPlaySound(sound))
         {
-            soundEffect.PlayOneShot(clip);
+            if (clip != null)
+            {
+                soundEffect.PlayOneShot(clip);
+            }
+            else
+            {
+                Debug.LogError("Clip not found for sound type: " + sound);
+            }
         }
-        else
+    }
+
+    private bool CanPlaySound(Sounds sound)
+    {
+        switch (sound)
         {
-            Debug.LogError("Clip not found for sound type: " + sound);
+            default:
+                return true;
+
+            case Sounds.PlayerMove:
+            case Sounds.PlayerJump:
+            case Sounds.EnemyMove:
+                if (soundTimerDictionary.ContainsKey(sound))
+                {
+                    float lastTimePlayed = soundTimerDictionary[sound];
+                    float soundPlayTimerMax = .03f;
+                    if (lastTimePlayed + soundPlayTimerMax < Time.time)
+                    {
+                        soundTimerDictionary[sound] = Time.time;
+                        return true;
+                    }
+                    else { return false; }
+                }
+                else { return true; }
         }
     }
 
