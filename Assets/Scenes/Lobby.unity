@@ -2053,22 +2053,16 @@ MonoBehaviour:
   - soundType: 1
     soundClip: {fileID: 8300000, guid: 0651b56880a11ef45909b779443691aa, type: 3}
   - soundType: 2
-    soundClip: {fileID: 8300000, guid: 234b586e812e70b419affbe33e30dcfe, type: 3}
-  - soundType: 3
     soundClip: {fileID: 8300000, guid: 55cf2d6b154ee6d4e87f7f87ac724172, type: 3}
-  - soundType: 6
+  - soundType: 3
     soundClip: {fileID: 8300000, guid: d50f2e0626e662041aa8a2ff5f8ebcc6, type: 3}
   - soundType: 4
-    soundClip: {fileID: 8300000, guid: e5cb0976ee7cf93489107ede5175519b, type: 3}
-  - soundType: 8
-    soundClip: {fileID: 8300000, guid: e3e14f5214ce41a49956b747e78f4978, type: 3}
-  - soundType: 7
     soundClip: {fileID: 8300000, guid: 516604db9dbf00141b71b702c4fd79c4, type: 3}
-  - soundType: 9
+  - soundType: 5
     soundClip: {fileID: 8300000, guid: b843fce942ecaf5408ed50f4d6129f2a, type: 3}
-  - soundType: 10
+  - soundType: 6
     soundClip: {fileID: 8300000, guid: 3be171efc7758c14fbbd5d2a11f944cb, type: 3}
-  - soundType: 11
+  - soundType: 7
     soundClip: {fileID: 8300000, guid: 8d331b50969371c4db3319a915ef2cad, type: 3}
 --- !u!4 &1014654654
 Transform:

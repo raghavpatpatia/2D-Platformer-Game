@@ -118,7 +118,6 @@ public class PlayerController : MonoBehaviour
         {   
             animator.SetBool("isJumping", false);
         }
-        SoundManager.Instance.Play(Sounds.PlayerJump);
     }
 
     void HorizontalMovement(float horizontal) 
@@ -138,7 +137,6 @@ public class PlayerController : MonoBehaviour
             PlayerMovementHorizontal(horizontal);
         }
         transform.localScale = scale;
-        SoundManager.Instance.Play(Sounds.PlayerMove);
     }
 
     public void PickupKey()

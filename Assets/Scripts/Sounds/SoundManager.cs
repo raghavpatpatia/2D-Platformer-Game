@@ -6,12 +6,9 @@ public enum Sounds
 {
     ButtonClick,
     BackgroundMusic,
-    PlayerMove,
     PlayerDeath,
-    PlayerJump,
     PlayerHurt,
-    EnemyDeath, 
-    EnemyMove,
+    EnemyDeath,
     EnemyAttack,
     LevelDoor,
     KeyPickup
@@ -48,17 +45,6 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         PlayBGMusic(Sounds.BackgroundMusic);
-        InitializeSoundDictionary();
-    }
-
-    private Dictionary<Sounds, float> soundTimerDictionary;
-
-    private void InitializeSoundDictionary()
-    {
-        soundTimerDictionary = new Dictionary<Sounds, float>();
-        soundTimerDictionary[Sounds.PlayerMove] = 0;
-        soundTimerDictionary[Sounds.PlayerJump] = 0;
-        soundTimerDictionary[Sounds.EnemyMove] = 0;
     }
 
     public void PlayBGMusic(Sounds sound)
@@ -78,41 +64,13 @@ public class SoundManager : MonoBehaviour
     public void Play(Sounds sound)
     {
         AudioClip clip = GetAudioClip(sound);
-        if (CanPlaySound(sound))
+        if (clip != null)
         {
-            if (clip != null)
-            {
-                soundEffect.PlayOneShot(clip);
-            }
-            else
-            {
-                Debug.LogError("Clip not found for sound type: " + sound);
-            }
+            soundEffect.PlayOneShot(clip);
         }
-    }
-
-    private bool CanPlaySound(Sounds sound)
-    {
-        switch (sound)
+        else
         {
-            default:
-                return true;
-
-            case Sounds.PlayerMove:
-            case Sounds.PlayerJump:
-            case Sounds.EnemyMove:
-                if (soundTimerDictionary.ContainsKey(sound))
-                {
-                    float lastTimePlayed = soundTimerDictionary[sound];
-                    float soundPlayTimerMax = .03f;
-                    if (lastTimePlayed + soundPlayTimerMax < Time.time)
-                    {
-                        soundTimerDictionary[sound] = Time.time;
-                        return true;
-                    }
-                    else { return false; }
-                }
-                else { return true; }
+            Debug.LogError("Clip not found for sound type: " + sound);
         }
     }
 

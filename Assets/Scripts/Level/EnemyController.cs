@@ -28,7 +28,6 @@ public class EnemyController : MonoBehaviour
 
     private void EnemyMovement()
     {
-        SoundManager.Instance.Play(Sounds.EnemyMove);
         if (patrolDestination == 0)
         {
             transform.position = Vector2.MoveTowards(transform.position, patrolPoints[0].position, moveSpeed * Time.deltaTime);
@@ -80,8 +79,9 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            isInRangeAnimationPlaying = true;
             SoundManager.Instance.Play(Sounds.EnemyAttack);
+            Debug.Log("Player in range");
+            isInRangeAnimationPlaying = true;
             animator.SetBool("inRange", true);
             StartCoroutine(WaitForAnimationFinish());
         }   
