@@ -8,6 +8,7 @@ public enum Sounds
     BackgroundMusic,
     PlayerDeath,
     PlayerHurt,
+    PlayerJump,
     EnemyDeath,
     EnemyAttack,
     LevelDoor,

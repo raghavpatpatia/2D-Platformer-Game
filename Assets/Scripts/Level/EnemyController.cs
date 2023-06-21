@@ -1,13 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
-    public Transform[] patrolPoints;
-    public float moveSpeed;
-    public int patrolDestination;
+    [SerializeField]Transform[] patrolPoints;
+    [SerializeField]float moveSpeed;
+    [SerializeField]int patrolDestination;
     private bool isAlive = true;
     private Animator animator;
     private bool isInRangeAnimationPlaying = false;
@@ -31,7 +29,7 @@ public class EnemyController : MonoBehaviour
         if (patrolDestination == 0)
         {
             transform.position = Vector2.MoveTowards(transform.position, patrolPoints[0].position, moveSpeed * Time.deltaTime);
-            if (Vector2.Distance(transform.position, patrolPoints[0].position) < 0.2f)
+            if ((transform.position - patrolPoints[0].position).sqrMagnitude < 0.2f * 0.2f)
             {
                 FlipEnemy(true);
                 patrolDestination = 1;
@@ -41,7 +39,7 @@ public class EnemyController : MonoBehaviour
         else if (patrolDestination == 1)
         {
             transform.position = Vector2.MoveTowards(transform.position, patrolPoints[1].position, moveSpeed * Time.deltaTime);
-            if (Vector2.Distance(transform.position, patrolPoints[1].position) < 0.2f)
+            if ((transform.position - patrolPoints[1].position).sqrMagnitude < 0.2f * 0.2f)
             {
                 FlipEnemy(false);
                 patrolDestination = 0;
@@ -63,9 +61,17 @@ public class EnemyController : MonoBehaviour
         transform.localScale = scale;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>() != null && collision.gameObject.GetComponent<PlayerController>().isOnGround == false)
+        if (collision.gameObject.GetComponent<PlayerController>() != null && collision.gameObject.GetComponent<PlayerController>().isOnGround)
+        {
+            SoundManager.Instance.Play(Sounds.EnemyAttack);
+            Debug.Log("Player in range");
+            isInRangeAnimationPlaying = true;
+            animator.SetBool("inRange", true);
+            StartCoroutine(WaitForAnimationFinish());
+        } 
+        else if (collision.gameObject.GetComponent<PlayerController>() != null && !collision.gameObject.GetComponent<PlayerController>().isOnGround)
         {
             isAlive = false;
             SoundManager.Instance.Play(Sounds.EnemyDeath);
@@ -73,18 +79,6 @@ public class EnemyController : MonoBehaviour
             animator.SetBool("isDead", true);
             StartCoroutine(WaitForAnimationFinish());
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.GetComponent<PlayerController>() != null)
-        {
-            SoundManager.Instance.Play(Sounds.EnemyAttack);
-            Debug.Log("Player in range");
-            isInRangeAnimationPlaying = true;
-            animator.SetBool("inRange", true);
-            StartCoroutine(WaitForAnimationFinish());
-        }   
     }
 
     IEnumerator WaitForAnimationFinish()

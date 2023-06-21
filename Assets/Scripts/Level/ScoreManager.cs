@@ -6,7 +6,7 @@ using TMPro;
 public class ScoreManager : MonoBehaviour
 {
     private TextMeshProUGUI textMeshPro;
-    public int score = 0;
+    public int score { get; set; }
     private void Awake()
     {
         textMeshPro = GetComponent<TextMeshProUGUI>();

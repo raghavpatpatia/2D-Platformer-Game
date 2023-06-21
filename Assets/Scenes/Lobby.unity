@@ -158,12 +158,12 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 95
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -196,7 +196,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2057,12 +2057,14 @@ MonoBehaviour:
   - soundType: 3
     soundClip: {fileID: 8300000, guid: d50f2e0626e662041aa8a2ff5f8ebcc6, type: 3}
   - soundType: 4
-    soundClip: {fileID: 8300000, guid: 516604db9dbf00141b71b702c4fd79c4, type: 3}
+    soundClip: {fileID: 8300000, guid: e5cb0976ee7cf93489107ede5175519b, type: 3}
   - soundType: 5
-    soundClip: {fileID: 8300000, guid: b843fce942ecaf5408ed50f4d6129f2a, type: 3}
+    soundClip: {fileID: 8300000, guid: 516604db9dbf00141b71b702c4fd79c4, type: 3}
   - soundType: 6
-    soundClip: {fileID: 8300000, guid: 3be171efc7758c14fbbd5d2a11f944cb, type: 3}
+    soundClip: {fileID: 8300000, guid: b843fce942ecaf5408ed50f4d6129f2a, type: 3}
   - soundType: 7
+    soundClip: {fileID: 8300000, guid: 3be171efc7758c14fbbd5d2a11f944cb, type: 3}
+  - soundType: 8
     soundClip: {fileID: 8300000, guid: 8d331b50969371c4db3319a915ef2cad, type: 3}
 --- !u!4 &1014654654
 Transform:
@@ -2262,6 +2264,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152192700}
   m_CullTransparentMesh: 1
+--- !u!1 &1186235775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1186235776}
+  m_Layer: 0
+  m_Name: ParticleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1186235776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186235775}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1195964960
 GameObject:
   m_ObjectHideFlags: 0
@@ -3110,13 +3143,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 150
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -3184,7 +3217,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

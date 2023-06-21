@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Bridge : MonoBehaviour
 {
-    public Transform[] patrolPoints;
-    public float moveSpeed;
-    public int startingPoint;
+    [SerializeField] Transform[] patrolPoints;
+    [SerializeField] float moveSpeed;
+    [SerializeField] int startingPoint;
     private int i;
 
     private void Start()
@@ -21,7 +21,8 @@ public class Bridge : MonoBehaviour
 
     private void BridgeMovement()
     {
-        if (Vector2.Distance(transform.position, patrolPoints[i].position) < 0.2f)
+
+        if ((transform.position - patrolPoints[i].position).sqrMagnitude < 0.2f * 0.2f)
         {
             i++;
             if (i == patrolPoints.Length)
