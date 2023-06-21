@@ -12,7 +12,7 @@ public class RestartButton : MonoBehaviour
         button.onClick.AddListener(RestartLevel);
     }
 
-    private void RestartLevel()
+    public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

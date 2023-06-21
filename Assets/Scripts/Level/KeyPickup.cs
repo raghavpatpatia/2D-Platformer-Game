@@ -13,7 +13,7 @@ public class KeyPickup : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();    
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
@@ -21,7 +21,6 @@ public class KeyPickup : MonoBehaviour
             StartCoroutine(KeyFade());
         }
     }
-
     IEnumerator KeyFade()
     {
         Vector2 initialPosition = transform.position;

@@ -64,20 +64,25 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.GetComponent<EnemyController>() != null && isOnGround)
         {
-            HealthManager.health--;
-            if (HealthManager.health <= 0)
-            {
-                isMoving = false;
-                animator.SetBool("isDead", true);
-                StartCoroutine(ReloadLevelAfterAnimation());
-            }
-            else
-            {
-                animator.SetBool("isDead", true);
-                StartCoroutine(PlayerEnemyCollision());
-            }
-            healthManager.UpdateHealth();
+            DeathByCollision();
         }
+    }
+
+    public void DeathByCollision()
+    {
+        HealthManager.health--;
+        if (HealthManager.health <= 0)
+        {
+            isMoving = false;
+            animator.SetBool("isDead", true);
+            StartCoroutine(ReloadLevelAfterAnimation());
+        }
+        else
+        {
+            animator.SetBool("isDead", true);
+            StartCoroutine(PlayerEnemyCollision());
+        }
+        healthManager.UpdateHealth();
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -145,10 +150,10 @@ public class PlayerController : MonoBehaviour
     
     IEnumerator PlayerEnemyCollision()
     {
-        Physics2D.IgnoreLayerCollision(3, 7, true);
+        Physics2D.IgnoreLayerCollision(6, 7, true);
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         gameObject.transform.position = checkpoint.position;
-        Physics2D.IgnoreLayerCollision(3, 7, false);
+        Physics2D.IgnoreLayerCollision(6, 7, false);
         animator.SetBool("isDead", false);
     }
 
