@@ -14,6 +14,7 @@ public class RestartButton : MonoBehaviour
 
     public void RestartLevel()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -1,22 +1,19 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject GameOverMenu;
-    public ScoreManager scoreManager;
-    public HealthManager healthManager;
+    [SerializeField] GameObject GameOverMenu;
+    [SerializeField] ScoreManager scoreManager;
+    private HealthManager healthManager;
     private Animator animator;
     private Rigidbody2D rb;
-    public Transform checkpoint;
-    public float speed;
-    public float jumpForce;
-    public bool isOnGround = true;
-    bool isMoving = true;
+    [SerializeField] Transform checkpoint;
+    [SerializeField] float speed;
+    [SerializeField] float jumpForce;
+    private ParticleSystem jumpParticle;
+    public bool isOnGround { get; private set;}
+    private bool isMoving = true;
 
     private void Awake()
     {
@@ -24,33 +21,25 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         GameOverMenu.SetActive(false);
         healthManager = GetComponent<HealthManager>();
+        jumpParticle = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        bool jump = (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space));
 
         HorizontalMovement(horizontal);
-        
-        VerticalMovement(vertical);
+                
+        VerticalMovement(jump);
 
-        // Crouch animation
-        if (Input.GetKeyDown(KeyCode.RightControl) || Input.GetKeyDown(KeyCode.LeftControl)) 
-        {
-            animator.SetBool("isCrouching", true);
-            isMoving = false;
-        }
-        else if (Input.GetKeyUp(KeyCode.RightControl) || Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            animator.SetBool("isCrouching", false);
-            isMoving = true;
-        }
+        Crouch();
+        
     }
 
     void PlayerMovementHorizontal(float horizontal) 
-    { 
+    {
         Vector2 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
@@ -70,15 +59,17 @@ public class PlayerController : MonoBehaviour
 
     public void DeathByCollision()
     {
-        HealthManager.health--;
-        if (HealthManager.health <= 0)
+        healthManager.health--;
+        if (healthManager.health <= 0)
         {
             isMoving = false;
             animator.SetBool("isDead", true);
+            SoundManager.Instance.Play(Sounds.PlayerHurt);
             StartCoroutine(ReloadLevelAfterAnimation());
         }
         else
         {
+            SoundManager.Instance.Play(Sounds.PlayerDeath);
             animator.SetBool("isDead", true);
             StartCoroutine(PlayerEnemyCollision());
         }
@@ -98,26 +89,43 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.name == "DeathCheck")
         {
             isMoving = false;
+            SoundManager.Instance.Play(Sounds.PlayerDeath);
             animator.SetBool("isDead", true);
             StartCoroutine(ReloadLevelAfterAnimation());
         }
     }
 
-    void VerticalMovement(float vertical)
+    private void Crouch()
+    {
+        if (Input.GetKeyDown(KeyCode.RightControl) || Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            animator.SetBool("isCrouching", true);
+            isMoving = false;
+        }
+        else if (Input.GetKeyUp(KeyCode.RightControl) || Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            animator.SetBool("isCrouching", false);
+            isMoving = true;
+        }
+    }
+
+    private void VerticalMovement(bool jump)
     {
         // Vertical Character movement
-        if (vertical > 0 && isOnGround)
-        {
+        if (jump && isOnGround)
+        {    
             rb.velocity = Vector2.up * jumpForce;
             animator.SetBool("isJumping", true);
+            SoundManager.Instance.Play(Sounds.PlayerJump);
+            jumpParticle.Play();
         }
         else
-        {
+        {   
             animator.SetBool("isJumping", false);
         }
     }
 
-    void HorizontalMovement(float horizontal) 
+    private void HorizontalMovement(float horizontal) 
     {
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
@@ -138,6 +146,7 @@ public class PlayerController : MonoBehaviour
 
     public void PickupKey()
     {
+        SoundManager.Instance.Play(Sounds.KeyPickup);
         scoreManager.IncrementScore(10);
     }
 

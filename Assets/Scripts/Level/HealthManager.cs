@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
-    public static int health;
-    public Image[] hearts;
+    public int health { get; set; }
+    [SerializeField] Image[] hearts;
 
-    public Sprite fullHeart;
-    public Sprite emptyHeart;
+    [SerializeField] Sprite fullHeart;
+    [SerializeField] Sprite emptyHeart;
 
     private void Awake()
     {

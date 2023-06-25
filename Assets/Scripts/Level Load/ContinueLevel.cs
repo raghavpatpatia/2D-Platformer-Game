@@ -17,7 +17,7 @@ public class ContinueLevel : MonoBehaviour
     private void Load()
     {
         sceneToContinue = PlayerPrefs.GetInt("LoadLevel");
-
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         if (sceneToContinue != 0)
         {
             SceneManager.LoadScene(sceneToContinue);

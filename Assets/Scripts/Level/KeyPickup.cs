@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class KeyPickup : MonoBehaviour
 {
-    public float moveDistance = 1f;
-    public float moveDuration = 1f;
+    private float moveDistance = 1f;
+    private float moveDuration = 1f;
     private SpriteRenderer spriteRenderer;
 
     private void Start()

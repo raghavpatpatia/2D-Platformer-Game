@@ -16,6 +16,7 @@ public class StartButton : MonoBehaviour
 
     private void StartGame()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         GamePanel.SetActive(false);
         LevelSelection.SetActive(true);
     }

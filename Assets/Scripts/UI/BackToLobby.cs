@@ -14,6 +14,7 @@ public class BackToLobby : MonoBehaviour
 
     private void LobbyScene()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         SceneManager.LoadScene(0);
     }
 }

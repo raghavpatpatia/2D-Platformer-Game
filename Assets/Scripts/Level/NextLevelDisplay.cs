@@ -4,17 +4,18 @@ using UnityEngine.SceneManagement;
 
 public class NextLevelDisplay: MonoBehaviour
 {
-    public TextMeshProUGUI text;
-    public GameObject nextLevelPanel;
-    public ScoreManager scoreManager;
-    [SerializeField]int levelScore;
+    [SerializeField] TextMeshProUGUI text;
+    [SerializeField] GameObject nextLevelPanel;
+    [SerializeField] ScoreManager scoreManager;
+    [SerializeField] int levelScore;
     private Animator animator;
-    private int nextSceneIndex;
+    private ParticleSystem levelComplete;
 
     private void Awake()
     {
         nextLevelPanel.SetActive(false);
         animator = GetComponent<Animator>();
+        levelComplete = GetComponentInChildren<ParticleSystem>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -23,6 +24,8 @@ public class NextLevelDisplay: MonoBehaviour
         {
             if (scoreManager.score >= levelScore)
             {
+                SoundManager.Instance.Play(Sounds.LevelDoor);
+                levelComplete.Play();
                 animator.SetBool("isScoreMax", true);
                 nextLevelPanel.SetActive(true);
                 text.text = "Congrats!! You have cleared the level " + SceneManager.GetActiveScene().buildIndex.ToString();
